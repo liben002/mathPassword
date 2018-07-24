@@ -1,34 +1,36 @@
 // Creates a random password, based off of the log values of fibonnaci numbers.
 import java.util.*;
 public class mathPassword {
- public static void main(String args[]) {
-  ArrayList<Double> fibonnaciSequence = new ArrayList<Double>();
+  public static void main(String args[]) {
+    ArrayList<Double> fibonnaciSequence = new ArrayList<Double>();
   
-  // a random amount of numbers between 10 and 15 starting at a random index from 0 to 25
-  fibonnaciSequence = fibonnaci((int) (Math.random() * 15) + 10, (int) (Math.random() * 25));
-  System.out.println("Fibonnaci sequence: \n" + fibonnaciSequence + "\n");
-  randomizeArrayList(fibonnaciSequence);
-  System.out.println("Randomized fibonnaci sequence: \n" + fibonnaciSequence + "\n");
-  logArrayList(fibonnaciSequence);
-  System.out.println("Loged fibonnaci sequence: \n" + fibonnaciSequence + "\n");
- }
+    // a random amount of numbers between 10 and 15 starting at a random index from 0 to 25
+    fibonnaciSequence = fibonnaci((int) (Math.random() * 15) + 10, (int) (Math.random() * 50));
+    System.out.println("Fibonnaci sequence: \n" + fibonnaciSequence + "\n");
+    randomizeArrayList(fibonnaciSequence);
+    System.out.println("Randomized fibonnaci sequence: \n" + fibonnaciSequence + "\n");
+    logArrayList(fibonnaciSequence);
+    System.out.println("Loged fibonnaci sequence: \n" + fibonnaciSequence + "\n");
+    extractTwoDecimals(fibonnaciSequence);
+    System.out.println("Extracted fibonnaci sequence: \n" + fibonnaciSequence + "\n");
+  }
 
  // creates an array of fibonnaci numbers of a random amount in a random place in the sequence
  public static ArrayList<Double> fibonnaci(int returnAmount, int minIndex) {
    System.out.println(minIndex);
-  double x = 0, y = 1, temp = 0;
-  ArrayList<Double> fibonnaciSequence = new ArrayList<Double>();
-  int i = 0;
+   double x = 0, y = 1, temp = 0;
+   ArrayList<Double> fibonnaciSequence = new ArrayList<Double>();
+   int i = 0;
   
   // creates an amount of fibonacci numbers that matches the return amount starting at a random location
   while(i < minIndex + returnAmount) {
     if(i > minIndex) {
       fibonnaciSequence.add(x);
     }
-   temp = x;
-   x = y;
-   y += temp;
-   i++;
+    temp = x;
+    x = y;
+    y += temp;
+    i++;
   }
   return fibonnaciSequence;
  }
@@ -45,11 +47,27 @@ public class mathPassword {
    return toBeRandoed;
  }
  
- //returns an ArrayList with each element logged
+ // returns an ArrayList with each element logged
  public static ArrayList<Double> logArrayList(ArrayList<Double> toBeLoged) {
    for(int i = 0; i < toBeLoged.size(); i++) {
      toBeLoged.set(i, Math.log(toBeLoged.get(i)));
    }
    return toBeLoged;
+ }
+ 
+ // extracts two decimal places of each element in the ArrayList and returns it
+ public static ArrayList<Double> extractTwoDecimals(ArrayList<Double> toBeExtracted) {
+   ArrayList<String> tempArrayList = new ArrayList<String>();
+   for(double element : toBeExtracted) {
+     String temp;
+     temp = String.valueOf(element);
+     tempArrayList.add(temp.substring(5, 7));
+     //System.out.println(tempArrayList);
+   }
+   for(String element : tempArrayList) {
+     Double temp= Double.parseDouble(element);
+     toBeExtracted.set(tempArrayList.indexOf(element), temp);
+   }
+   return toBeExtracted;
  }
 }
